@@ -1,0 +1,1 @@
+# Lipkin-Model-Hartee-Fock
