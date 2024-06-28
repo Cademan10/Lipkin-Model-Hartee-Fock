@@ -29,7 +29,7 @@ class Lipkin_Model_HF:
             alpha = 0
 
         E = -self.e*self.N/2*np.cos(2*alpha)-self.V*self.N/4*np.sin(2*alpha)**2*(self.N-1)
-        print("Analytic energy =",E)
+        
 
         return E
 
@@ -51,11 +51,11 @@ class Lipkin_Model_HF:
 
         if self.X1==True:
             result = fminbound(self.Hartree_Fock_Eqs, 0,1,full_output=True)
-            print("Numerical solver converged:",bool(1-result[2]))
+           
             D0 = result[0]
-            print("D0 =",D0,"D1 =",-np.sqrt(1-D0))
             
-            print("Should be zero:",self.Hartree_Fock_Eqs(D0))
+            
+            
             D1 = -np.sqrt(1-D0**2)
 
         else:
@@ -63,7 +63,7 @@ class Lipkin_Model_HF:
             D1 = 0
         E_num = -self.e*self.N/2*(D0**2-D1**2)-self.V*self.N*(self.N-1)*((D0**2)*(D1**2))
 
-        print("Numerical E =",E_num)
+        
 
 
 
@@ -82,7 +82,7 @@ class Lipkin_Model_HF:
 
 
     def Diagonalization(self):
-        ms = [-self.N/2+i for i in range(N+1)]
+        ms = [-self.N/2+i for i in range(self.N+1)]
 
         H = [[self.e*m*self.delta(n,m)-1/2*self.V*(self.MatrixElement(m,n)*self.delta(n-1,m+1)
                                                 +self.MatrixElement(n,m)*self.delta(m-1,n+1)) 
@@ -90,7 +90,7 @@ class Lipkin_Model_HF:
 
         E = np.linalg.eigvalsh(H).min()
 
-        print("Diagonalized energy =",E)
+  
 
         return E
         
@@ -125,8 +125,7 @@ if __name__ == "__main__":
       numericalEnergies1.append(numE)
       diagonalizedEnergies1.append(diagE)
    
-   
-      print("###")
+
    
    
    plt.scatter(eps,analyticEnergies1,c='r',label="Analytic solution")
